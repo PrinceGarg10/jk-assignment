@@ -7,6 +7,8 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { GeneralModule } from './general/general.module';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { Service } from './tokens';
+import { UserModule } from './user/user.module';
+import { UserEntity } from './user/entity/user.entity';
 
 @Module({
     imports: [
@@ -18,11 +20,15 @@ import { Service } from './tokens';
         imports: [CommonModule],
         inject: [Service.CONFIG],
         useFactory: (config: Config): TypeOrmModuleOptions => {
-            return config.DB_CONFIG
+            return {
+              ...config.DB_CONFIG,
+              entities: [UserEntity]
+            }
         },
     }),
       CommonModule,
-      GeneralModule
+      GeneralModule,
+      UserModule
     ],
     providers: [AppService],
     controllers: [AppController]
