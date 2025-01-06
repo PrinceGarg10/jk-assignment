@@ -12,7 +12,8 @@ export interface IFile {
 
 @Injectable()
 export class FileSystemService {
-    private readonly baseDir: string = path.join(__dirname, '..', 'uploads');
+    private readonly baseDir: string = path.join(process.cwd(), 'uploads');
+    private readonly hosting: string = `${process.env.BASE_URL || "http://localhost"}:${process.env.API_PORT || 3000}` 
     private readonly defaultFolder: string = 'media';
 
     constructor(private readonly generatorService: GeneratorService) {
@@ -35,6 +36,7 @@ export class FileSystemService {
         // Generate the file name
         const fileName = this.generatorService.fileName(<string>mime.extension(file.mimetype));
         const filePath = path.join(this.baseDir, pathType, folderKey, fileName);
+        const fileUrl = `${this.hosting}/uploads/${pathType}/${folderKey}${fileName}`
 
         try {
             // Create folder if it doesn't exist
@@ -50,7 +52,7 @@ export class FileSystemService {
                 fileName,
                 type: file.mimetype,
                 size: file.size,
-                url: filePath,
+                url: fileUrl,
             };
         } catch (error) {
             return {
