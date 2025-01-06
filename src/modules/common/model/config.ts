@@ -1,5 +1,10 @@
 import { TypeOrmModuleOptions } from "@nestjs/typeorm";
+import { RedisClientOptions } from "redis";
 
+interface RedisConfigOptions {
+    enabled: boolean;
+    config: RedisClientOptions
+}
 
 
 export interface Config {
@@ -12,5 +17,8 @@ export interface Config {
 
     readonly JWT_SECRET: string;
     
-    readonly DB_CONFIG: TypeOrmModuleOptions
+    readonly DB_CONFIG: TypeOrmModuleOptions;
+    
+    readonly redis: RedisConfigOptions
+
 }

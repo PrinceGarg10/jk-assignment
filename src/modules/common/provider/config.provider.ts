@@ -4,6 +4,7 @@ import * as _ from 'lodash';
 import { Service } from '../../tokens';
 import { Config } from '../model';
 import * as dotenv from 'dotenv' // see https://github.com/motdotla/dotenv#how-do-i-use-dotenv-with-import
+import { valueToBoolean } from '../../utils/ToBoolean';
 
 export const configProvider = {
 
@@ -36,6 +37,13 @@ export const configProvider = {
             API_PREFIX: `${env.API_PREFIX}`,
             SWAGGER_ENABLE: _.toNumber(env.SWAGGER_ENABLE),
             JWT_SECRET: `${env.JWT_SECRET}`,
+            redis: {
+                enabled: valueToBoolean(process.env.REDIS),
+                config: {
+                    url: `redis://${process.env.REDIS_HOST || '127.0.0.1'}:${parseInt(process.env.REDIS_PORT as string, 10) || 6379}`,
+                    database: parseInt(process.env.REDIS_DATABASE as string, 10) || 2,
+                }
+            },
             DB_CONFIG: {
                 type: 'postgres',
                 username: `${env.PG_USERNAME}`,
