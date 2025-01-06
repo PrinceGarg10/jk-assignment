@@ -1,18 +1,23 @@
 import { Module } from '@nestjs/common';
 import { LogInterceptor } from './flow';
-import { configProvider } from './provider';
+import { configProvider, LoggerService } from './provider';
 import { FileSystemService } from '../shared/file-system.service';
+import { GeneratorService } from '../shared/generator.service';
 
 @Module({
     providers: [
         configProvider,
         LogInterceptor,
-        FileSystemService
+        FileSystemService,
+        LoggerService,
+        GeneratorService
     ],
     exports: [
         configProvider,
         LogInterceptor,
-        FileSystemService
+        FileSystemService,
+        LoggerService,
+        GeneratorService
     ]
 })
 export class CommonModule { }

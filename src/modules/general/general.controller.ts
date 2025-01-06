@@ -35,12 +35,6 @@ export class GeneralController {
     return resp
   }
 
-  @Post('file-upload')
-  @UseInterceptors(FileInterceptor('file'))
-  async saveFileToAws(@UploadedFile() file: any): Promise<any> {
-    return await this.fileSystemService.uploadContent(file)
-  }
-
   @Post('files')
   @UseInterceptors(FilesInterceptor('files'))
   async saveFiles(@UploadedFiles() files: any): Promise<any> {

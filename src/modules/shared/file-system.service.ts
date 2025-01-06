@@ -25,7 +25,7 @@ export class FileSystemService {
         return this.uploadFileToLocal(file, 'content', folderKey);
     }
 
-    async uploadFileToLocal(file: IFile, pathType = this.defaultFolder, folderKey?: string): Promise<any> {
+    async uploadFileToLocal(file: IFile, pathType = this.defaultFolder, folderKey = ''): Promise<any> {
         if (folderKey) {
             if (!folderKey.endsWith('/')) {
                 folderKey = folderKey + '/';
