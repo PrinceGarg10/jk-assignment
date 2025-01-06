@@ -25,6 +25,7 @@
     "@nestjs/platform-express": "^10.0.0",
     "@nestjs/serve-static": "^4.0.2",
     "@nestjs/swagger": "^8.1.0",
+    "@nestjs/typeorm": "^10.0.2",
     "@types/bcrypt": "^5.0.2",
     "@types/lodash": "^4.17.14",
     "@types/mime-types": "^2.1.4",
@@ -34,8 +35,10 @@
     "joi": "^17.13.3",
     "lodash": "^4.17.21",
     "mime-types": "^2.1.35",
+    "pg": "^8.13.1",
     "reflect-metadata": "^0.2.0",
     "rxjs": "^7.8.1",
+    "typeorm": "^0.3.20",
     "uuidv4": "^6.2.13",
     "winston": "^3.17.0"
   },

@@ -15,10 +15,10 @@ export const configProvider = {
             API_PORT: Joi.string().required(),
             API_PREFIX: Joi.string().required(),
             SWAGGER_ENABLE: Joi.string().required(),
-            // PG_PORT: Joi.string().required(),
-            // PG_USERNAME: Joi.string().required(),
-            // PG_PASSWORD: Joi.string().required(),
-            // PG_HOST: Joi.string().required(),
+            PG_PORT: Joi.string().required(),
+            PG_USERNAME: Joi.string().required(),
+            PG_DATABASE: Joi.string().required(),
+            PG_HOST: Joi.string().required(),
             JWT_SECRET: Joi.string().required(),
             JWT_ISSUER: Joi.string().required(),
 
@@ -36,7 +36,15 @@ export const configProvider = {
             API_PREFIX: `${env.API_PREFIX}`,
             SWAGGER_ENABLE: _.toNumber(env.SWAGGER_ENABLE),
             JWT_SECRET: `${env.JWT_SECRET}`,
-
+            DB_CONFIG: {
+                type: 'postgres',
+                username: `${env.PG_USERNAME}`,
+                port: Number(env.PG_PORT),
+                host: `${env.PG_HOST}`,
+                password: `${env.PG_PASSWORD}`,
+                database: `${env.PG_DATABASE}`,
+                synchronize: true,
+            }
         };
     }
 };
