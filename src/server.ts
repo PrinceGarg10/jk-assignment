@@ -6,8 +6,8 @@ import { json } from 'express';
 import helmet from 'helmet';
 import * as _ from 'lodash'
 import { ApplicationModule } from './modules/app.module';
-// import { CommonModule, LogInterceptor } from './modules/common';
-// import { AllExceptionsFilter } from './modules/common/interceptor/exception.filter';
+import { CommonModule, LogInterceptor } from './modules/common';
+import { AllExceptionsFilter } from './modules/common/interceptor/exception.filter';
 /**
  * These are API defaults that can be changed using environment variables,
  * it is not required to change them (see the `.env.example` file)
@@ -70,10 +70,10 @@ async function bootstrap(): Promise<void> {
         origin: '*'
     })
 
-    // const logInterceptor = app.select(CommonModule).get(LogInterceptor);
-    // app.useGlobalInterceptors(logInterceptor);
+    const logInterceptor = app.select(CommonModule).get(LogInterceptor);
+    app.useGlobalInterceptors(logInterceptor);
 
-    // app.useGlobalFilters(new AllExceptionsFilter());
+    app.useGlobalFilters(new AllExceptionsFilter());
 
 
     await app.listen(process.env.API_PORT || API_DEFAULT_PORT).then(() => {
