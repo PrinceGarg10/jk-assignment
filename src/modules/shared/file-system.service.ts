@@ -66,7 +66,8 @@ export class FileSystemService {
 
     async deleteFileFromLocal(filePath: string): Promise<any> {
         try {
-            const fullFilePath = path.join(this.baseDir, filePath);
+            const relativeFilePath = filePath.replace(`${this.hosting}/uploads`, '');
+            const fullFilePath = path.join(this.baseDir, relativeFilePath);
 
             if (fs.existsSync(fullFilePath)) {
                 fs.unlinkSync(fullFilePath);
