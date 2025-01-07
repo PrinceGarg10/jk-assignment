@@ -54,19 +54,15 @@ describe('AuthService', () => {
 
   describe('login', () => {
     it('should successfully login a user and generate tokens', async () => {
-      // Given
       const loginInput: LoginInput = {
         username: 'sysadmin',
-        password: 'sysadmin@pass', // Simulate correct password
+        password: 'sysadmin@pass',
       };
 
-      // Mock password validation (successful login)
       jest.spyOn(HashService, 'validateHash').mockResolvedValue(true);
 
-      // When
       const result = await authService.login(loginInput);
 
-      // Then
       expect(result).toHaveProperty('token');
       expect(result).toHaveProperty('refreshToken');
       expect(result).toHaveProperty('loginDetails');

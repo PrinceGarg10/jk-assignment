@@ -24,13 +24,11 @@ export class LogInterceptor implements NestInterceptor {
                 return data;
             }),
             catchError(err => {
-                // Log fomat inspired by the Squid docs
                 // See https://docs.trafficserver.apache.org/en/6.1.x/admin-guide/monitoring/logging/log-formats.en.html
                 this.logger.error(`${this.getTimeDelta(startTime)}ms ${request.ip} ${err.status} ${request.method} ${this.getUrl(request)} - ${err}`);
                 throw new HttpException(err.message, err.status || 500, {
                     cause: err
                 })
-                //return throwError(() => err)
             })
         );
     }

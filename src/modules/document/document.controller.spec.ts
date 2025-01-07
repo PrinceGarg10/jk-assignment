@@ -52,7 +52,6 @@ describe('DocumentController', () => {
       }
       const createdDocument = { ...createDto, id: 1, uploadedBy: mockUser.id, lastUpdatedBy: mockUser.id };
 
-      // Mock service response
       mockDocumentService.create.mockResolvedValue(createdDocument);
 
       const result = await controller.createBySysadmin(createDto, mockUser);

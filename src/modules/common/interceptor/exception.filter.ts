@@ -33,7 +33,6 @@ import {
       };
   
       // Throw an exceptions for either
-      // MongoError, ValidationError, TypeError, CastError and Error
       if (exception.message) {
         responseMessage("Error", exception.message);
       } else {
