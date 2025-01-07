@@ -5,13 +5,17 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UserEntity } from './entity/user.entity';
 import { generateIdCharacters } from '../utils/GenerateCharacter';
+import { RoleEnum } from '../common/constants/role';
+import { Gender } from '../common/constants/gender';
 
 @Injectable()
 export class UserService {
   constructor(
     @InjectRepository(UserEntity)
     private userRepository: Repository<UserEntity>,
-  ) {}
+  ) {
+     this.userInitFirstTime()
+  }
 
   async getUniqueUsername(user: CreateUserDto): Promise<string> {
     const chars = generateIdCharacters(3);
@@ -27,6 +31,27 @@ export class UserService {
     }
     const username = firstname + chars;
     return username;
+  }
+
+  async userInitFirstTime() {
+    const data = {
+      "name": "sysadmin",
+      "desc": "string",
+      "isActive": true,
+      "isLoginOtp": true,
+      "contact": "9999999999",
+      "role": RoleEnum.ADMIN,
+      "email": "sysadmin@gmail.com",
+      "gender": Gender.MALE,
+      "dob": "02-02-2000",
+      "password": "sysadmin@pass",
+      "username": "sysadmin"
+    }
+    const checkUserExist = await this.userRepository.count()
+    if(!checkUserExist) {
+      const user = this.userRepository.create(data);
+      return await this.userRepository.save(user);
+    }
   }
 
   async create(data: CreateUserDto) {
