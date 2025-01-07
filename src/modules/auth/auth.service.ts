@@ -62,20 +62,15 @@ export class AuthService {
             }
             const tokenInfo = await this.jwtService.verifyAsync(loginInput.rtoken)
             if (tokenInfo && tokenInfo.id) {
-                user = await this.userService.findOneByQueryForLogin({ _id: tokenInfo.id })
+                user = await this.userService.findOneByQueryForLogin({ id: tokenInfo.id })
             }
         } else {
-            user = await this.userService.findOneByQueryForLogin({
-                $or: [
-                    {
-                        username: loginInput.username,
-                    },
-                    {
-                        contact: loginInput.username,
-                    }
-                ],
-                isActive: { $ne: false },
-            });
+            user = await this.userService.findOneByQueryForLogin(
+                [
+                    { username: loginInput.username, isActive: true},
+                    { contact: loginInput.username,  isActive: true}
+                ]
+            );
         }
 
 
@@ -83,7 +78,7 @@ export class AuthService {
             if (loginInput.rtoken) {
                 const genToken = await this.generateLoginTokens({
                     tokenDetails: {
-                        id: user._id,
+                        id: user.id,
                         sub: user.password,
                     },
                     user: user
@@ -99,7 +94,7 @@ export class AuthService {
                 if (isvalidated) {
                     const genToken = await this.generateLoginTokens({
                         tokenDetails: {
-                            id: user._id,
+                            id: user.id,
                             sub: user.password,
                         },
                         user: user
@@ -124,7 +119,7 @@ export class AuthService {
             throw new UnauthorizedException(e)
         }
 
-        const findUser = await this.userService.findOneByQueryForLogin({ _id: tokenDetails.id })
+        const findUser = await this.userService.findOneByQueryForLogin({ id: tokenDetails.id })
         if (findUser?.isActive) {
             return findUser
         }

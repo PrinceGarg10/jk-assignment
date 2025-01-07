@@ -9,6 +9,7 @@ import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { Service } from './tokens';
 import { UserModule } from './user/user.module';
 import { UserEntity } from './user/entity/user.entity';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
     imports: [
@@ -28,7 +29,8 @@ import { UserEntity } from './user/entity/user.entity';
     }),
       CommonModule,
       GeneralModule,
-      UserModule
+      UserModule,
+      AuthModule
     ],
     providers: [AppService],
     controllers: [AppController]
