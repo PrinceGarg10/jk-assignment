@@ -59,10 +59,10 @@ export class DocumentService {
     try {
       const filter: any = {};
       if (data.uploadedBy) {
-        filter['uploadedBy'] = data.uploadedBy;
+        filter['uploadedBy.id'] = Number(data.uploadedBy);
       }
       if (data.lastUpdatedBy) {
-        filter['lastUpdatedBy'] = data.lastUpdatedBy;
+        filter['lastUpdatedBy.id'] = Number(data.lastUpdatedBy)
       }
       if (data.status) {
         filter['status'] = data.status;
@@ -71,7 +71,7 @@ export class DocumentService {
       const page = +data.page || 1;
       const limit = +data.limit || 10;
       const sortBy = data.sortBy || 'asc';
-      const sortKey = data.sortKey || 'name';
+      const sortKey = data.sortKey || 'createdAt';
 
       if (data.noPaginate) {
         return await this.documentRepository.find({

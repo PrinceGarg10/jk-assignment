@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, JoinColumn, ManyToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, JoinColumn, ManyToOne, RelationId } from 'typeorm';
 import { DocumentStatus } from '../../common/constants/document-status';
 import { UserEntity } from '../../user/entity/user.entity';
 
@@ -29,12 +29,18 @@ export class DocumentEntity {
   updatedAt: Date;
 
   @ManyToOne(() => UserEntity, { eager: true })
-  @JoinColumn({ name: 'uploaded_by' })
+  @JoinColumn({ name: 'uploadedBy' })
   uploadedBy: UserEntity;
 
-  @ManyToOne(() => UserEntity, { eager: true })
-  @JoinColumn({ name: 'last_updated_by' })
+  @RelationId((document: DocumentEntity) => document.uploadedBy)
+  uploadedById: number;
+
+  @ManyToOne(() => UserEntity)
+  @JoinColumn({ name: 'lastUpdatedBy' })
   lastUpdatedBy: UserEntity;
+
+  @RelationId((document: DocumentEntity) => document.lastUpdatedBy)
+  lastUpdatedById: number;
 
   @Column({
     type: 'enum',
