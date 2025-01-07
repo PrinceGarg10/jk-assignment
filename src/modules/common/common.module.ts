@@ -3,6 +3,7 @@ import { LogInterceptor } from './flow';
 import { configProvider, LoggerService } from './provider';
 import { FileSystemService } from '../shared/file-system.service';
 import { GeneratorService } from '../shared/generator.service';
+import { RedisService } from '../shared/redis.service';
 
 @Module({
     providers: [
@@ -10,14 +11,16 @@ import { GeneratorService } from '../shared/generator.service';
         LogInterceptor,
         FileSystemService,
         LoggerService,
-        GeneratorService
+        GeneratorService,
+        RedisService
     ],
     exports: [
         configProvider,
         LogInterceptor,
         FileSystemService,
         LoggerService,
-        GeneratorService
+        GeneratorService,
+        RedisService
     ]
 })
 export class CommonModule { }
