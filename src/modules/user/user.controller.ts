@@ -41,7 +41,7 @@ export class UserController {
 
     @Authorized(RoleEnum.ADMIN)
     @Delete()
-    async remove(@Query('id') id: string) {
+    async remove(@Query('id') id: number) {
         return await this.userService.remove(id);
     }
 
