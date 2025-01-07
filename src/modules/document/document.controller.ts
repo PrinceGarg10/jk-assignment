@@ -45,7 +45,7 @@ export class DocumentController {
 
     @Authorized(RoleEnum.ADMIN)
     @Delete()
-    async remove(@Query('id') id: string) {
+    async remove(@Query('id') id: number) {
         return await this.documentService.remove(id);
     }
 
