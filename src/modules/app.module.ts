@@ -10,6 +10,8 @@ import { Service } from './tokens';
 import { UserModule } from './user/user.module';
 import { UserEntity } from './user/entity/user.entity';
 import { AuthModule } from './auth/auth.module';
+import { DocumentModule } from './document/document.module';
+import { DocumentEntity } from './document/entity/document.entity';
 
 @Module({
     imports: [
@@ -23,14 +25,17 @@ import { AuthModule } from './auth/auth.module';
         useFactory: (config: Config): TypeOrmModuleOptions => {
             return {
               ...config.DB_CONFIG,
-              entities: [UserEntity]
+              entities: [
+                UserEntity, DocumentEntity
+              ]
             }
         },
     }),
       CommonModule,
       GeneralModule,
       UserModule,
-      AuthModule
+      AuthModule,
+      DocumentModule,
     ],
     providers: [AppService],
     controllers: [AppController]
