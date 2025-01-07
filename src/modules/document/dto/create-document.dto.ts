@@ -18,16 +18,8 @@ export class CreateDocumentDto {
     @ApiProperty()
     description?: string;
 
-    @ApiProperty()
-    createdAt: Date;
-
-    @ApiProperty()
-    updatedAt: Date;
-
-    @ApiProperty()
     uploadedBy: UserEntity;
 
-    @ApiProperty()
     lastUpdatedBy: UserEntity;
 
     @ApiProperty()
