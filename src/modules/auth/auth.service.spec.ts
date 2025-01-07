@@ -56,8 +56,8 @@ describe('AuthService', () => {
     it('should successfully login a user and generate tokens', async () => {
       // Given
       const loginInput: LoginInput = {
-        username: 'testuser',
-        password: 'userPassword', // Simulate correct password
+        username: 'sysadmin',
+        password: 'sysadmin@pass', // Simulate correct password
       };
 
       // Mock password validation (successful login)
