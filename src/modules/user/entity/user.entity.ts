@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, Index, BeforeInsert, BeforeUpdate } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, Index, BeforeInsert, BeforeUpdate, UpdateDateColumn, CreateDateColumn } from 'typeorm';
 import { Gender } from '../../common/constants/gender';
 import { RoleEnum } from '../../common/constants/role';
 import { HashService } from '../../utils/hashService';
@@ -51,6 +51,13 @@ export class UserEntity {
 
   @Column()
   hash: string;
+
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
+
 
   // Hooks to handle password hashing before insert/update
   @BeforeInsert()
